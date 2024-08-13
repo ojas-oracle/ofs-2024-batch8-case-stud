@@ -13,15 +13,35 @@ public class CustomerServiceImpl implements CustomerService{
     CustomerRepo customerRepo;
 
     @Override
-    public int register(Customer c) {
-        return 0;
+    public Customer register(Customer c) {
+        System.err.println(c);
+        Customer customer = customerRepo.save(c);
+        return customer;
     }
 
     @Override
     public int login(String loginID, String pwd) {
-       List<Customer> customer = customerRepo.findByLoginId(loginID);
-       System.out.println(customer);
-       return 0;
+       List<Customer> customers = customerRepo.findByLoginId(loginID);
+       if(customers.isEmpty()){
+            // customer not found
+            return -1;
+       }else{
+            if(customers.get(0).getPassword().equals(pwd)){
+                return 1;
+                // success login
+            }else{
+                Customer customer = customers.get(0);
+                customer.setLogin_attempts(customer.getLogin_attempts() + 1);
+
+                if(customer.getLogin_attempts()==3){
+                    customer.setStatus("inactive");
+                }
+                customerRepo.save(customer);
+                // wrong pwd
+                return 0;
+            }
+       }
+
     }
     
 }
