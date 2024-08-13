@@ -1,82 +1,55 @@
 package com.ofss.main.inb.domain;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name="account")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Account {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id")
     private int accountNumber;
+
+    @Column(name = "account_type")
     private String name;
+
+    @Column(name = "account_balance")
     private double balance;
+
+    @Column(name = "account_status")
     private String status;
+
+    @Column(name = "account_minimum_balance")
+    private double min_balance;
+    
+    @Column(name = "withdrawal_limit")
+    private double limit;
+
+    @Column(name = "account_rate")
+    private double account_rate;
+
+    @OneToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
+    @JsonBackReference
     private Customer customer;
-    private List<Transaction> txns;
-    private List<Cheque> cheques;
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-
-    public List<Cheque> getCheques() {
-        return cheques;
-    }
-
-    public void setCheques(List<Cheque> cheques) {
-        this.cheques = cheques;
-    }
-
-    public List<Transaction> getTxns() {
-        return txns;
-    }
-
-    public void setTxns(List<Transaction> txns) {
-        this.txns = txns;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Account(){
-
-    }
-    
-    public String toString(){
-        return "Account Number : " + accountNumber; 
-    }
-
-    public Account(int no , String n , double bal){
-        this.accountNumber = no;
-        this.name=n;
-        this.balance = bal;
-    }
-    
-    public int getAccountNumber() {
-        return accountNumber;
-    }
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public double getBalance() {
-        return balance;
-    }
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
+    // private List<Transaction> txns;
+    // private List<Cheque> cheques;
 
     public boolean withdraw(double amount){
         if(amount > balance || amount<=0){

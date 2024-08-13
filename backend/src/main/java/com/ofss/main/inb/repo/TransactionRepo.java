@@ -1,5 +1,9 @@
 package com.ofss.main.inb.repo;
 
-public interface TransactionRepo {
-    boolean createTransaction(double amount , int fromAcc , int toAcc);   
+import org.springframework.data.repository.CrudRepository;
+
+import com.ofss.main.inb.domain.Transaction;
+
+public interface TransactionRepo extends CrudRepository<Transaction,Integer>{
+ 
 }

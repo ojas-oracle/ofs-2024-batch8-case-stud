@@ -1,72 +1,54 @@
 package com.ofss.main.inb.domain;
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name="transaction")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Transaction {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
     private int id;
+
+    @OneToOne
+    @JoinColumn(name = "payer_account_id", referencedColumnName = "account_id")
     private Account from_account;
+
+    @OneToOne
+    @JoinColumn(name = "payee_account_id", referencedColumnName = "account_id")
     private Account to_account;
+
+    @Column(name = "transaction_amount")
     private double amount;
+
+    @Column(name = "transaction_status")
     private String status;
+
+    @Column(name = "transaction_remarks")
     private String remarks;
+
+    @Column(name = "transaction_created_at")
     private LocalDate created_at;
+
+    @Column(name = "transaction_completed_at")
     private LocalDate completed_at;
+
+    @Column(name = "transfer_type")
     private String transfer_type;
-
-    public Account getFrom_account() {
-        return from_account;
-    }
-    public void setFrom_account(Account from_account) {
-        this.from_account = from_account;
-    }
-    public Account getTo_account() {
-        return to_account;
-    }
-    public void setTo_account(Account to_account) {
-        this.to_account = to_account;
-    }
-
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    public double getAmount() {
-        return amount;
-    }
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    public String getRemarks() {
-        return remarks;
-    }
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-    public String getCreated_at() {
-        return created_at.toString();
-    }
-    public void setCreated_at(LocalDate created_at) {
-        this.created_at = created_at;
-    }
-    public String getCompleted_at() {
-        return completed_at.toString();
-    }
-    public void setCompleted_at(LocalDate completed_at) {
-        this.completed_at = completed_at;
-    }
-    public String getTransfer_type() {
-        return transfer_type;
-    }
-    public void setTransfer_type(String transfer_type) {
-        this.transfer_type = transfer_type;
-    }
     
 }

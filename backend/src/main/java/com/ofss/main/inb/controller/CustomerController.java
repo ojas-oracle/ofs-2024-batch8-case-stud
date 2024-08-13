@@ -1,13 +1,19 @@
 package com.ofss.main.inb.controller;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ofss.main.inb.domain.Account;
 import com.ofss.main.inb.domain.Customer;
+import com.ofss.main.inb.domain.Transaction;
 import com.ofss.main.inb.service.CustomerService;
+import com.ofss.main.inb.service.TransactionService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +28,9 @@ public class CustomerController{
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    TransactionService transactionService;
     
     @PostMapping("login")
     public Map<String,Object> login(@RequestBody Map<String, String> body) {
@@ -40,6 +49,27 @@ public class CustomerController{
         map.put("result", customer);
         map.put("message" , customer!=null? "Register Success" : "Register Failed");
         map.put("success" , customer!=null? true:false);        
+        return map;
+    }
+
+    @PostMapping("pay/{id}")
+    public Map<String,Object> pay(@RequestBody Transaction transaction) {
+        System.out.println(transaction);
+        Transaction txn = transactionService.createTxn(transaction);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("result", txn);
+        map.put("message" , txn!=null? "Payment Initiated" : "Payment Failed");
+        map.put("success" , txn!=null? true:false);        
+        return map;
+    }
+
+    @GetMapping("dashboard/{id}")
+    public Map<String,Object> dashboard(@PathVariable int id) {
+        List<Account> accounts = customerService.getAll(id);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("result", accounts);
+        map.put("message" , accounts!=null? "success" : "failed");
+        map.put("success" , accounts!=null? true:false);        
         return map;
     }
     

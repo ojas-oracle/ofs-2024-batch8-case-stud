@@ -1,5 +1,8 @@
 package com.ofss.main.inb.service;
 
+import com.ofss.main.inb.domain.Account;
+import com.ofss.main.inb.domain.Customer;
+
 public interface AccountService {
-    public boolean createAccount(String type , int customerId);
+    public Account createAccount(String type , Customer customer);
 }

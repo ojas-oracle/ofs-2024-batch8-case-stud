@@ -1,5 +1,7 @@
 package com.ofss.main.inb.service;
 
+import com.ofss.main.inb.domain.Transaction;
+
 public interface TransactionService {
-    public boolean createTxn(double amount , int from , int to);
+    public Transaction createTxn(Transaction transaction);
 }

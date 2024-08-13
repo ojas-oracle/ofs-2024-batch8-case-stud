@@ -1,15 +1,20 @@
 package com.ofss.main.inb.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.ofss.main.inb.domain.Transaction;
 import com.ofss.main.inb.repo.TransactionRepo;
-import com.ofss.main.inb.repo.TransactionRepoImpl;
 
+
+@Service
 public class TransactionServiceImpl implements TransactionService{
 
-    TransactionRepo transactionRepo = new TransactionRepoImpl();
+    @Autowired
+    TransactionRepo transactionRepo;
 
     @Override
-    public boolean createTxn(double amount, int from, int to) {
-        return transactionRepo.createTransaction(amount, from, to);
+    public Transaction createTxn(Transaction transaction) {
+        return transactionRepo.save(transaction);
     }
     
 }

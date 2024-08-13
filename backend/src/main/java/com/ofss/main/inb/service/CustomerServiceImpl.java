@@ -3,6 +3,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.ofss.main.inb.domain.Account;
 import com.ofss.main.inb.domain.Customer;
 import com.ofss.main.inb.repo.CustomerRepo;
 
@@ -12,10 +14,15 @@ public class CustomerServiceImpl implements CustomerService{
     @Autowired
     CustomerRepo customerRepo;
 
+    @Autowired
+    AccountService accountService;
+
     @Override
     public Customer register(Customer c) {
         System.err.println(c);
         Customer customer = customerRepo.save(c);
+        Account account = accountService.createAccount("savings", customer);
+        System.out.println(account);
         return customer;
     }
 
@@ -42,6 +49,15 @@ public class CustomerServiceImpl implements CustomerService{
             }
        }
 
+    }
+
+    @Override
+    public List<Account> getAll(int id) {
+        Customer customer = customerRepo.findById(id).get();
+        if(customer!=null){
+            return customer.getAccounts();
+        }
+        return null;
     }
     
 }
