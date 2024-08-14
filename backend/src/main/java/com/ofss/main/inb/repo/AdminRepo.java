@@ -1,6 +1,11 @@
 package com.ofss.main.inb.repo;
 
-public interface AdminRepo {
-    public boolean login(String loginID , String pwd);
-    public String unblockCustomer(int id);
+import org.springframework.data.repository.CrudRepository;
+
+import com.ofss.main.inb.domain.Admin;
+import java.util.List;
+
+
+public interface AdminRepo extends CrudRepository<Admin , Integer>{
+    public List<Admin> findByLoginId(String loginId);
 }

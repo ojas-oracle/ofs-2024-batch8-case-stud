@@ -1,22 +1,49 @@
 package com.ofss.main.inb.service;
 import java.util.List;
-import com.ofss.main.inb.domain.Account;
-import com.ofss.main.inb.repo.AdminRepo;
-import com.ofss.main.inb.repo.AdminRepoImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.ofss.main.inb.domain.Account;
+import com.ofss.main.inb.domain.Admin;
+import com.ofss.main.inb.domain.Customer;
+import com.ofss.main.inb.repo.AdminRepo;
+import com.ofss.main.inb.repo.CustomerRepo;
+
+@Service
 public class AdminServiceImpl implements AdminService {
 
-    AdminRepo adminRepo = new AdminRepoImpl();
-   // AccountRepo accountRepo = new AccountRepoImpl();
+    @Autowired
+    AdminRepo adminRepo;
+
+    @Autowired
+    CustomerRepo customerRepo;
 
     @Override
     public boolean login(String loginID, String pwd) {
-        return adminRepo.login(loginID, pwd);
+        List<Admin> admins = adminRepo.findByLoginId(loginID);
+        if(admins.isEmpty()){
+            // customer not found
+            return false;
+       }else{
+            if(admins.get(0).getLoginPass().equals(pwd)){
+                return true;
+                // success login
+            }
+            return false;
+       }
     }
 
     @Override
-    public String unblockCustomer(int id) {
-        return adminRepo.unblockCustomer(id);
+    public boolean unblockCustomer(int id) {
+        Customer customer = customerRepo.findById(id).get();
+        if(customer!=null){
+            customer.setStatus("active");
+            customer.setLogin_attempts(0);
+            customerRepo.save(customer);
+            return true;
+        }
+        return false;
+        //return adminRepo.unblockCustomer(id);
     }
 
     @Override
