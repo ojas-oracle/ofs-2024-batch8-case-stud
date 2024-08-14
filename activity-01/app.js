@@ -9,7 +9,6 @@ try {
     var name = reader.question("Your name : ")
     var sal = reader.question("Your salary : ")
 
-    // reading a JSON file synchronously
     const employee = new Employee(id , name , sal)
     const data = fs.readFileSync("emp.json");
     var empData = data.toString()
@@ -26,8 +25,5 @@ try {
     console.log("Data Added")
 
   } catch (error) {
-    // logging the error
     console.error(error);
-  
-    throw error;
   }
