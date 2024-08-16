@@ -1,0 +1,27 @@
+<!--
+ Copyright (c) 2014, 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-hybrid-padding">
+  <h1 class="oj-sm-margin-10x-bottom">Register</h1>
+  <div id="div1">
+    <oj-messages
+    class="oj-color-invert"
+    messages="[[messagesDataprovider]]"
+    position="{}"
+    display="notification"
+    display-options.category="none"></oj-messages>
+  <oj-form-layout max-columns="2" direction="row">
+    <oj-c-input-text value="ojask002" label-hint="Username"></oj-c-input-text>
+    <oj-c-input-password label-hint="Password"></oj-c-input-password>
+    <oj-c-text-area
+    value="Seawoods , Navi Mumbai"
+    label-hint="Home Address"
+    rows="3"></oj-c-text-area>
+    <oj-input-date label-hint="DOB" autocomplete="off"></oj-input-date>
+    <oj-button id="chroming_button4" chroming="callToAction" on-oj-action="[[buttonAction]]">Confirm & Register</oj-button>
+    
+  </oj-form-layout>
+</div>
+</div>
