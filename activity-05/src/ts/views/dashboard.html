@@ -1,0 +1,57 @@
+<!--
+ Copyright (c) 2014, 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div>
+  <!--
+ Copyright (c) 2014, 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-hybrid-padding">
+  <h1>Welcome Ojas</h1>
+  <!-- <h5 style="font-weight: normal;">Account Balance : <span style="font-weight: bolder;">₹10,000</span></h5> -->
+  <h6>Your Departments</h6>
+  <oj-table
+  id="table"
+  aria-label="Departments Table"
+  accessibility.row-header="depName"
+  data="[[restDataProvider]]"
+  selection-mode='{"row": "multiple", "column": "multiple"}'
+  dnd='{"reorder": {"columns": "enabled"}}'
+  scroll-policy="loadMoreOnScroll"
+  scroll-policy-options='{"fetchSize": 10}'
+  columns='[{"headerText": "Department Id", 
+             "field": "id",
+             "headerClassName": "oj-sm-only-hide",
+             "className": "oj-sm-only-hide",
+             "resizable": "enabled",
+             "id": "id"},
+            {"headerText": "Employee Name", 
+             "field": "name",
+             "resizable": "enabled",
+             "id": "name"}]'
+  class="demo-table-container"></oj-table>
+
+  <h6>People Under Me</h6>
+
+  <oj-list-view
+            id="listview"
+            aria-label="simple list"
+            data="[[dataProvider]]"
+            class="oj-listview-item-padding-off">
+            <template slot="itemTemplate" data-oj-as="item">
+              <oj-list-item-layout>
+                <span class="oj-typography-body-md oj-text-color-primary">
+                  <oj-bind-text value="[[item.item.data.name]]"></oj-bind-text>
+                </span>
+                <oj-avatar slot="leading" size="xs" src="[[item.item.data.image]]"></oj-avatar>
+                <span slot="secondary" class="oj-typography-body-sm oj-text-color-secondary">
+                  <oj-bind-text value="[[item.item.data.title]]"></oj-bind-text>
+                </span>
+              </oj-list-item-layout>
+            </template>
+          </oj-list-view>
+</div>
+</div>
