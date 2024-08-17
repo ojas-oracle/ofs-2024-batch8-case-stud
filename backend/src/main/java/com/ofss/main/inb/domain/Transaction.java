@@ -27,11 +27,11 @@ public class Transaction {
 
     @OneToOne
     @JoinColumn(name = "payer_account_id", referencedColumnName = "account_id")
-    private Account from_account;
+    private Account from;
 
     @OneToOne
     @JoinColumn(name = "payee_account_id", referencedColumnName = "account_id")
-    private Account to_account;
+    private Account to;
 
     @Column(name = "transaction_amount")
     private double amount;

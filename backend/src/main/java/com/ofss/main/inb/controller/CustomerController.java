@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.ofss.main.inb.domain.Account;
 import com.ofss.main.inb.domain.Customer;
 import com.ofss.main.inb.domain.Transaction;
 import com.ofss.main.inb.service.CustomerService;
@@ -65,11 +63,11 @@ public class CustomerController{
 
     @GetMapping("dashboard/{id}")
     public Map<String,Object> dashboard(@PathVariable int id) {
-        List<Account> accounts = customerService.getAll(id);
+        List<Transaction> transactions = customerService.getTransactions(id);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("result", accounts);
-        map.put("message" , accounts!=null? "success" : "failed");
-        map.put("success" , accounts!=null? true:false);        
+        map.put("result", transactions);
+        map.put("message" , transactions!=null? "success" : "failed");
+        map.put("success" , transactions!=null? true:false);        
         return map;
     }
     

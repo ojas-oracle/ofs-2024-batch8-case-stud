@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.ofss.main.inb.domain.Account;
 import com.ofss.main.inb.domain.Customer;
+import com.ofss.main.inb.domain.Transaction;
 import com.ofss.main.inb.repo.CustomerRepo;
 
 @Service
@@ -16,6 +17,9 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    TransactionService transactionService;
 
     @Override
     public Customer register(Customer c) {
@@ -59,5 +63,16 @@ public class CustomerServiceImpl implements CustomerService{
         }
         return null;
     }
+
+    @Override
+    public List<Transaction> getTransactions(int customerID) {
+        List<Account> accounts = getAll(customerID);
+        if(accounts.isEmpty()!=true){
+            List<Transaction> transactions =  transactionService.getAllByAccount(accounts.get(0).getAccountNumber());
+            return transactions;
+        }
+        return null;
+    }
+    
     
 }

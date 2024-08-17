@@ -52,12 +52,13 @@ class DashboardViewModel {
               // for (let i = 0; i < body.length; i++) {
               //   console.log(body[i])
               // }
+              
               try {
                 var res:any = {}
-                res['data'] = []
-                for(let i=0; i<body.length;i++){
-                  res['data'].push({id: body[i].id, name:body[i].name , email: body[i].email , username:body[i].username})
-                }
+                res['data'] = body;
+                // for(let i=0; i<body.length;i++){
+                //   res['data'].push({id: body[i].id, name:body[i].name , email: body[i].email , username:body[i].username})
+                // }
                 console.log(res)
                 return res;
               } catch (error) {
