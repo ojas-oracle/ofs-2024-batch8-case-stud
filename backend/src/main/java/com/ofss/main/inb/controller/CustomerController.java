@@ -35,19 +35,29 @@ public class CustomerController{
         int res = customerService.login(body.get("id"), body.get("password"));
         HashMap<String, Object> map = new HashMap<>();
         map.put("result", res);
-        map.put("message" , res==1? "Login Success" : "Login Failed");
+        map.put("message" , res==1? "Login Success" : "Please check your userame and password");
         map.put("success" , res==1? true:false);        
         return map;
     }
 
     @PostMapping("register")
     public Map<String,Object> signup(@RequestBody Customer c) {
-        Customer customer = customerService.register(c);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("result", customer);
-        map.put("message" , customer!=null? "Register Success" : "Register Failed");
-        map.put("success" , customer!=null? true:false);        
-        return map;
+        try {
+
+            Customer customer = customerService.register(c);
+        
+            map.put("result", customer);
+            map.put("message" , customer!=null? "Register Success" : "Register Failed");
+            map.put("success" , customer!=null? true:false);        
+            return map;
+            
+        } catch (Exception e) {
+            map.put("success" , false);
+            map.put("message" , "Register Failed , " + e.getMessage());
+            return map;
+        }
+      
     }
 
     @PostMapping("pay/{id}")

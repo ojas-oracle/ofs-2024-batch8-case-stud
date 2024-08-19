@@ -1,21 +1,50 @@
-/**
- * @license
- * Copyright (c) 2014, 2024, Oracle and/or its affiliates.
- * Licensed under The Universal Permissive License (UPL), Version 1.0
- * as shown at https://oss.oracle.com/licenses/upl/
- * @ignore
- */
 import * as ko from "knockout";
 import { whenDocumentReady } from "ojs/ojbootstrap";
-import ArrayDataProvider = require("ojs/ojarraydataprovider");
 import "ojs/ojtable";
 import "ojs/ojknockout";
+import { RESTDataProvider } from 'ojs/ojrestdataprovider';
+
+type Transaction = { id: number; from : number; to: number , type : string , amount : string , status : string };
+type K = Transaction['id'];
+
 class DashboardViewModel {
-  private readonly deptArray = JSON.parse('[{"DepartmentId" : 12 , "DepartmentName" : "OFSS"}]');
-    readonly dataprovider = new ArrayDataProvider(this.deptArray, {
-      keyAttributes: "DepartmentId",
-      implicitSort: [{ attribute: "DepartmentId", direction: "ascending" }],
-    });
+
+  readonly keyAttributes = 'id';
+  readonly restDataProvider: RESTDataProvider<K, Transaction>;
+
+  constructor(){
+  this.restDataProvider = new RESTDataProvider({
+    keyAttributes: this.keyAttributes,
+    url: "http://localhost:8080/banking/dashboard/22",
+    transforms: {
+      fetchFirst: {
+        request: async (options) => {
+          const url = new URL(options.url);
+          return new Request(url.href);
+        },
+        response: async ({ body }) => {
+          try {
+            var res:any = {}
+            let data = [];
+            for(let i=0; i<body['result'].length;i++){
+              data.push({
+                "id" : body['result'][i].id,
+                "from" : body['result'][i].from.accountNumber,
+                "to" : body['result'][i].to.accountNumber,
+                "type" : "",
+                "amount" : "₹ "  + body['result'][i].amount,
+                "status" : body['result'][i].status
+                })
+            }
+            res['data'] = data
+            return res;
+          } catch (error) {
+            console.log(error)
+            return null;
+          }
+        }
+      }}})
+    }
 }
 
 whenDocumentReady().then(function () {

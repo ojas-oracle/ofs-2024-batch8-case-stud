@@ -11,20 +11,32 @@
   id="table"
   aria-label="Departments Table"
   accessibility.row-header="depName"
-  data="[[dataprovider]]"
-  selection-mode='{"row": "multiple", "column": "multiple"}'
+  data="[[restDataProvider]]"
   dnd='{"reorder": {"columns": "enabled"}}'
   scroll-policy="loadMoreOnScroll"
   scroll-policy-options='{"fetchSize": 10}'
-  columns='[{"headerText": "Department Id", 
-             "field": "DepartmentId",
+  columns='[{"headerText": "Transaction Id", 
+             "field": "id",
              "headerClassName": "oj-sm-only-hide",
              "className": "oj-sm-only-hide",
              "resizable": "enabled",
-             "id": "depId"},
-            {"headerText": "Department Name", 
-             "field": "DepartmentName",
+             "id": "id"},
+            {"headerText": "From Account", 
+             "field": "from",
              "resizable": "enabled",
-             "id": "depName"}]'
+             "id": "from"}, {"headerText": "To Account", 
+             "field": "to",
+             "resizable": "enabled",
+             "id": "to"}, {"headerText": "Transaction Type", 
+             "field": "type",
+             "resizable": "enabled",
+             "id": "type"}, {"headerText": "Amount", 
+             "field": "amount",
+             "resizable": "enabled",
+             "id": "amount"},
+             {"headerText": "Status", 
+             "field": "status",
+             "resizable": "enabled",
+             "id": "status"}]'
   class="demo-table-container"></oj-table>
 </div>

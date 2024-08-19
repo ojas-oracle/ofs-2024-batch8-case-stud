@@ -1,0 +1,28 @@
+<div class="oj-hybrid-padding">
+    <h1 class="oj-sm-margin-10x-bottom">Register Yourself</h1>
+    <div id="div1">
+    <oj-validation-group id="tracker" valid="{{groupValid}}">
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-c-input-text value={{username}} label-hint="Username" required="true"></oj-c-input-text>
+      <oj-c-input-password label-hint="Password" required="true" value="{{password}}"></oj-c-input-password>
+      <oj-c-input-text label-hint="Phone" length.max="10" required="true" value="{{number}}"></oj-c-input-text>
+      <oj-c-input-text label-hint="Email" required="true" value="{{email}}"></oj-c-input-text>
+      <oj-c-text-area
+      value="Seawoods , Navi Mumbai"
+      label-hint="Home Address"
+      rows="3" value="{{address}}"></oj-c-text-area>
+      <oj-input-date label-hint="DOB" autocomplete="off"></oj-input-date>
+      <oj-button id="chroming_button4" chroming="callToAction" class="oj-sm-width-full oj-sm-margin-4x-top" on-oj-action="[[buttonAction]]">
+        REGISTER
+    <span slot="endIcon" class="oj-ux-ico-arrow-circle-right"></span>
+    </oj-button>
+    </oj-form-layout>
+</oj-validation-group>
+<oj-messages
+class="oj-color-invert"
+messages="[[messagesDataprovider]]"
+position="{}"
+display="notification"
+display-options.category="none"></oj-messages>
+  </div>
+  </div>
