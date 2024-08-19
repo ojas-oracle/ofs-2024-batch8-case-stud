@@ -32,11 +32,11 @@ public class CustomerController{
     
     @PostMapping("login")
     public Map<String,Object> login(@RequestBody Map<String, String> body) {
-        int res = customerService.login(body.get("id"), body.get("password"));
+        int custID = customerService.login(body.get("id"), body.get("password"));
         HashMap<String, Object> map = new HashMap<>();
-        map.put("result", res);
-        map.put("message" , res==1? "Login Success" : "Please check your userame and password");
-        map.put("success" , res==1? true:false);        
+        map.put("result", custID);
+        map.put("message" , custID!=(-1)? "Login Success" : "Please check your userame and password");
+        map.put("success" , custID!=(-1)? true:false);        
         return map;
     }
 

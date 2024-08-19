@@ -1,0 +1,20 @@
+<div class="demo-flex-display">
+    <div style="margin: auto;
+    width: 50%;
+    height: 100%;
+    padding: 10px; text-align: left;">
+         <h3 class="oj-sm-margin-10x-vertical">Transaction Details</h3>
+         <oj-c-input-number label-hint="Your Account Number" value="{{from}}"></oj-c-input-number>
+        <oj-c-input-number label-hint="Benificiary Account Number" class="oj-sm-margin-4x-vertical" value="{{to}}"></oj-c-input-number>
+        <oj-c-input-number label-hint="Amount" value="{{amount}}"></oj-c-input-number>
+         <oj-button id="chroming_button4" chroming="callToAction" class="oj-sm-width-full oj-sm-margin-4x-top" on-oj-action="[[buttonAction]]">
+             Initiate Transaction
+         <span slot="endIcon" class="oj-ux-ico-arrow-circle-right"></span>
+         </oj-button>
+    </div>
+    <oj-messages
+     messages="[[messagesDataprovider]]"
+     position="{}"
+     display="notification"
+     display-options.category="none"></oj-messages>
+   </div>

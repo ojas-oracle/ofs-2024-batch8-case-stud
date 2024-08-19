@@ -11,11 +11,17 @@ class DashboardViewModel {
 
   readonly keyAttributes = 'id';
   readonly restDataProvider: RESTDataProvider<K, Transaction>;
+  readonly custID = 22;
 
   constructor(){
+  let queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  if(urlParams.has("id")!=true){
+     window.location.href = "http://localhost:8000/?ojr=login";
+  }
   this.restDataProvider = new RESTDataProvider({
     keyAttributes: this.keyAttributes,
-    url: "http://localhost:8080/banking/dashboard/22",
+    url: "http://localhost:8080/banking/dashboard/" + urlParams.get("id"),
     transforms: {
       fetchFirst: {
         request: async (options) => {
@@ -26,12 +32,14 @@ class DashboardViewModel {
           try {
             var res:any = {}
             let data = [];
+            
             for(let i=0; i<body['result'].length;i++){
+              let type = body['result'][i].from.accountNumber!=this.custID ? "DEBIT" : "CREDIT"
               data.push({
                 "id" : body['result'][i].id,
                 "from" : body['result'][i].from.accountNumber,
                 "to" : body['result'][i].to.accountNumber,
-                "type" : "",
+                "type" : type,
                 "amount" : "₹ "  + body['result'][i].amount,
                 "status" : body['result'][i].status
                 })

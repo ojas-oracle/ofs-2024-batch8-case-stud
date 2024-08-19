@@ -92,8 +92,12 @@ class RegisterViewModel {
             this.messages.push({
               severity: 'confirmation',
               summary: 'User Registered Successfully !',
+              detail : 'You will be redirected to login page in 2 seconds...'
             });
             this.messagesDataprovider.data = this.messages;
+            setTimeout(() => {
+              window.location.href = "http://localhost:8000/?ojr=login";
+            }, 2000); 
           }
         })
         .catch((error) => {

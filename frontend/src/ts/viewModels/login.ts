@@ -7,7 +7,6 @@ import "ojs/ojlabel";
 import "ojs/ojformlayout";
 import { ojButton } from "ojs/ojbutton";
 import "ojs/ojbutton";
-import Router = require("ojs/ojrouter");
 import ko = require("knockout");
 import { ojMessage } from 'ojs/ojmessage';
 import 'ojs/ojmessages';
@@ -54,7 +53,9 @@ class LoginViewModel {
               })
               this.messagesDataprovider.data = this.messages;
         }else{
-            let router = Router.rootInstance;
+            // let router = Router.rootInstance;
+            window.location.href = "http://localhost:8000/?ojr=dashboard&id="+result['result']
+            // console.log(router.currentState())
         }
       })
       .catch((error) => {

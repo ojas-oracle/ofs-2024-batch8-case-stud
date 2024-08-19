@@ -38,7 +38,7 @@ public class CustomerServiceImpl implements CustomerService{
             return -1;
        }else{
             if(customers.get(0).getPassword().equals(pwd)){
-                return 1;
+                return customers.get(0).getId();
                 // success login
             }else{
                 Customer customer = customers.get(0);
@@ -49,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService{
                 }
                 customerRepo.save(customer);
                 // wrong pwd
-                return 0;
+                return -1;
             }
        }
 
